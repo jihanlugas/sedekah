@@ -14,12 +14,12 @@ class CreateUsertreesTable extends Migration
     public function up()
     {
         Schema::create('usertrees', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id');
             $table->foreignId('parent_id');
             $table->integer('parent_level');
             $table->tinyInteger('is_admin')->default(0);;
             $table->timestamps();
-            $table->primary(['user_id', 'parent_id']);
         });
 
         DB::table('usertrees')->insert([
