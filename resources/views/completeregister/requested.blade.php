@@ -14,7 +14,7 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('requested') }}">
+                        <form method="POST" action="{{ route('completeregistration.requested') }}">
                             @csrf
                             <div class="form-group">
                                 <label>Invitation Code</label>

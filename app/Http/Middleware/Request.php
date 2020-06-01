@@ -19,10 +19,10 @@ class Request
         if (!Auth::user()->is_complete) {
             if (Auth::user()->requested_by) {
                 // Redirect Uplaod Bukti
-                return redirect()->route('upload');
+                return redirect()->route('completeregistration.upload');
             }else{
                 // Redirect Requested User Code
-                return redirect()->route('requested');
+                return redirect()->route('completeregistration.requested');
             }
         }
     }

@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usertree extends Model
 {
-    protected $fillable = [
-        'user_id', 'parent_id', 'parent_level'
-    ];
+    protected $guarded = [];
 
-    public function user(){
-        return $this->belongsTo('App\User');
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'parent_id', 'id');
     }
 }
