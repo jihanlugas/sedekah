@@ -77,6 +77,14 @@ class CompleteregistrationController extends Controller
 
     public function upload()
     {
-        return view('completeregister.upload');
+        $mUsertrees = Usertree::where('user_id', Auth::user()->id)->user;
+
+        dd($mUsertrees);
+//        foreach ($mUsertrees as $i => $mUsertree){
+//            dd($mUsertree);
+//        }
+
+
+        return view('completeregister.upload', ['mUsertrees' => $mUsertrees]);
     }
 }
