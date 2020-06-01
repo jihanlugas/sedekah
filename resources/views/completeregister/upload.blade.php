@@ -35,7 +35,7 @@
                                         <label>{{ $mUsertree->user->name }}</label>
                                         <input type="file"
                                                class="form-control-file @error('photo_id') is-invalid @enderror"
-                                               name="photo_id[]"
+                                               name="photo_id[{{ $mUsertree->parent_id }}]"
                                                value="{{ old('invitation_code') }}">
                                         @error('photo_id')
                                         <span class="invalid-feedback" role="alert">
