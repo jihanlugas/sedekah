@@ -23,6 +23,6 @@ class SiteController extends Controller
      */
     public function success()
     {
-        return 'Success Register';
+        return view('site.success');
     }
 }
