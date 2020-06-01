@@ -21,6 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/success', 'SiteController@success')->name('success');
-Route::get('/requested', 'CompleteregistrationController@requested')->name('requested');
+
+
+Route::get('/requested', 'CompleteregistrationController@requested')->name('completeregistration.requested');
 Route::post('/requested', 'CompleteregistrationController@postrequested');
-Route::get('/upload', 'CompleteregistrationController@upload')->name('upload');
+Route::get('/upload', 'CompleteregistrationController@upload')->name('completeregistration.upload');
+Route::post('/upload', 'CompleteregistrationController@postupload');

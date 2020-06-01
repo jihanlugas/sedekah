@@ -14,33 +14,40 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('requested') }}">
+                        <form method="POST" action="{{ route('completeregistration.upload') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
-                                <label>Bukti 1</label>
-                                <input type="text" class="form-control @error('requested_by') is-invalid @enderror"
-                                       placeholder="Upload Bukti 1" name="invitation_code"
-                                       value="{{ old('invitation_code') }}" autofocus>
-                                @error('invitation_code')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Bukti 1</label>
-                                <input type="file" class="form-control-file @error('requested_by') is-invalid @enderror"
-                                       placeholder="Upload Bukti 1" name="invitation_code"
-                                       value="{{ old('invitation_code') }}" autofocus>
+{{--                            <div class="form-group">--}}
+{{--                                <label>Bukti 1</label>--}}
 {{--                                <input type="text" class="form-control @error('requested_by') is-invalid @enderror"--}}
 {{--                                       placeholder="Upload Bukti 1" name="invitation_code"--}}
 {{--                                       value="{{ old('invitation_code') }}" autofocus>--}}
-                                @error('invitation_code')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
+{{--                                @error('invitation_code')--}}
+{{--                                <span class="invalid-feedback" role="alert">--}}
+{{--                                    <strong>{{ $message }}</strong>--}}
+{{--                                </span>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+
+
+                            @if($mUsertrees)
+                                @foreach($mUsertrees as $i => $mUsertree)
+                                    <div class="form-group">
+                                        <label>{{ $mUsertree->user->name }}</label>
+                                        <input type="file"
+                                               class="form-control-file @error('photo_id') is-invalid @enderror"
+                                               name="photo_id[]"
+                                               value="{{ old('invitation_code') }}">
+                                        @error('photo_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                @endforeach
+                            @else
+
+                            @endif
+
                             <div class="form-group text-right">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>

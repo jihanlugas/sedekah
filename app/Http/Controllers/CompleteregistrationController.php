@@ -77,6 +77,11 @@ class CompleteregistrationController extends Controller
 
     public function upload()
     {
-        return view('completeregister.upload');
+        $mUsertrees = Usertree::with('user')->where('user_id', Auth::user()->id)->get();
+        return view('completeregister.upload', ['mUsertrees' => $mUsertrees]);
+    }
+
+    public function postupload(Request $request){
+        var_dump($_FILES);
     }
 }
