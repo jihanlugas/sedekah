@@ -6,6 +6,7 @@ use App\Usertree;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Traits\PhotouploadTrait;
 
 class CompleteregistrationController extends Controller
 {
@@ -14,6 +15,9 @@ class CompleteregistrationController extends Controller
      *
      * @return void
      */
+
+    use PhotouploadTrait;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -69,9 +73,9 @@ class CompleteregistrationController extends Controller
 
             $mUser->requested_by = $mUserinvitation->id;
             $mUser->save();
-            return redirect()->route('upload')->with('alert-success', 'Berhasil Menambahkan Invitation Code!');
+            return redirect()->route('completeregistration.upload')->with('alert-success', 'Berhasil Menambahkan Invitation Code!');
         }else{
-            return redirect()->route('requested')->with('alert-danger', 'Invitation Code Not Valid!');
+            return redirect()->route('completeregistration.requested')->with('alert-danger', 'Invitation Code Not Valid!');
         }
     }
 
@@ -82,6 +86,21 @@ class CompleteregistrationController extends Controller
     }
 
     public function postupload(Request $request){
-        var_dump($_FILES);
+        if ($request->photo_id){
+            foreach ($request->photo_id as $i => $data){
+//                $data->validate([
+//                    'photo_id' => 'image|mimes:jpeg,png,gif,webp|max:2048'
+//                ]);
+                $mUsertree = Usertree::where('parent_id', $i)
+                    ->where('user_id', Auth::user()->id)->first();
+                $photo_id = ($this->uploadPhoto($data));
+
+                $mUsertree->photo_id = $photo_id;
+                $mUsertree->save();
+            }
+            die('aye');
+        }else{
+            return redirect()->route('completeregistration.upload');
+        }
     }
 }
