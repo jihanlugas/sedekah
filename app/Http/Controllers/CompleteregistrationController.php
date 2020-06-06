@@ -81,7 +81,7 @@ class CompleteregistrationController extends Controller
 
     public function upload()
     {
-        $mUsertrees = Usertree::with('user')->where('user_id', Auth::user()->id)->get();
+        $mUsertrees = Usertree::with(['user'])->where('user_id', Auth::user()->id)->get();
         return view('completeregister.upload', ['mUsertrees' => $mUsertrees]);
     }
 
@@ -93,12 +93,12 @@ class CompleteregistrationController extends Controller
 //                ]);
                 $mUsertree = Usertree::where('parent_id', $i)
                     ->where('user_id', Auth::user()->id)->first();
-                $photo_id = ($this->uploadPhoto($data));
+                $photo_id = ($this->uploadPhoto($data, $mUsertree->id));
 
                 $mUsertree->photo_id = $photo_id;
                 $mUsertree->save();
             }
-            die('aye');
+            return redirect()->route('completeregistration.upload');
         }else{
             return redirect()->route('completeregistration.upload');
         }

@@ -19,4 +19,10 @@ class Photoupload extends Model
         'width',
         'height',
     ];
+
+    public static function getfullpathimage($id){
+        $mPhotoupload = Photoupload::find($id);
+
+        return 'uploads/' . $mPhotoupload->file_name;
+    }
 }
