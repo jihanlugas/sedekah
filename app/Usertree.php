@@ -12,4 +12,8 @@ class Usertree extends Model
     {
         return $this->belongsTo('App\User', 'parent_id', 'id');
     }
+
+    public function photoupload(){
+        return $this->belongsTo('App\Photoupload', 'photo_id', 'id');
+    }
 }
