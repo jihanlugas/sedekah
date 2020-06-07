@@ -51,6 +51,7 @@ class CompleteregistrationController extends Controller
                     'parent_id' => 1,
                     'parent_level' => 1,
                     'is_admin' => 1,
+                    'confirmation_status' => 0,
                 ]);
 
                 // Atas dari user yang invite
@@ -59,6 +60,7 @@ class CompleteregistrationController extends Controller
                         'user_id' => $mUser->id,
                         'parent_id' => $mUsertree->parent_id,
                         'parent_level' => $mUsertree->parent_level - 1,
+                        'confirmation_status' => 0,
                     ]);
                 }
 
@@ -67,6 +69,7 @@ class CompleteregistrationController extends Controller
                     'user_id' => $mUser->id,
                     'parent_id' => $mUserinvitation->id,
                     'parent_level' => 5,
+                    'confirmation_status' => 0,
                 ]);
             }
 
@@ -81,6 +84,13 @@ class CompleteregistrationController extends Controller
 
     public function upload()
     {
+        $mUsertrees =  Usertree::where('user_id', Auth::user()->id)
+            ->where('photo_id', 0)->get();
+
+        if(!$mUsertrees->count()){
+            return redirect()->route('completeregistration.completeupload');
+        }
+
         $mUsertrees = Usertree::with(['user'])->where('user_id', Auth::user()->id)->get();
         return view('completeregister.upload', ['mUsertrees' => $mUsertrees]);
     }
@@ -98,9 +108,21 @@ class CompleteregistrationController extends Controller
                 $mUsertree->photo_id = $photo_id;
                 $mUsertree->save();
             }
-            return redirect()->route('completeregistration.upload');
+
+            $mUsertrees =  Usertree::where('user_id', Auth::user()->id)
+                ->where('photo_id', 0)->get();
+
+            if(!$mUsertrees->count()){
+                return redirect()->route('completeregistration.upload');
+            }else{
+                return redirect()->route('completeregistration.completeupload');
+            }
         }else{
             return redirect()->route('completeregistration.upload');
         }
+    }
+
+    public function completeupload(){
+        return view('completeregister.completeupload');
     }
 }

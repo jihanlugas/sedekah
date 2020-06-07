@@ -27,3 +27,5 @@ Route::get('/requested', 'CompleteregistrationController@requested')->name('comp
 Route::post('/requested', 'CompleteregistrationController@postrequested');
 Route::get('/upload', 'CompleteregistrationController@upload')->name('completeregistration.upload');
 Route::post('/upload', 'CompleteregistrationController@postupload');
+Route::get('/completeupload', 'CompleteregistrationController@completeupload')->name('completeregistration.completeupload');
+Route::post('/completeupload', 'CompleteregistrationController@postcompleteupload');

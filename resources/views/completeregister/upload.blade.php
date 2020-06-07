@@ -37,7 +37,10 @@
                                                 <label>{{ $mUsertree->user->name }}</label>
                                             </div>
                                             <div class="col-12">
-                                                <img src="{{ App\Photoupload::getfullpathimage($mUsertree->photo_id) }}" alt="" width="200px" height="200px">
+                                                <img src="{{ \App\Photoupload::getfullpathimage($mUsertree->photo_id) }}" alt="" width="200px" height="200px">
+                                            </div>
+                                            <div class="col-12">
+                                                <label>{{ \App\Usertree::$confirmation_status[$mUsertree->confirmation_status] }}</label>
                                             </div>
                                         </div>
                                     @else
